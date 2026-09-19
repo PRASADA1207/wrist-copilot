@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wrist Copilot Prototype</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="badge">Hack 2026 Prototype</div>
+    <h1 class="brand-title">
+      <span class="copilot-mark" aria-hidden="true">
+        <svg viewBox="0 0 64 64" role="img">
+          <defs>
+            <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#2dd4ff"></stop>
+              <stop offset="45%" stop-color="#7b68ff"></stop>
+              <stop offset="100%" stop-color="#a855f7"></stop>
+            </linearGradient>
+          </defs>
+          <path d="M18 12h28a10 10 0 0 1 10 10v20a10 10 0 0 1-10 10H18A10 10 0 0 1 8 42V22a10 10 0 0 1 10-10zm0 8a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h10l7-9 7 9h4a2 2 0 0 0 2-2V22a2 2 0 0 0-2-2H18z" fill="url(#g1)"></path>
+        </svg>
+      </span>
+      Wrist Copilot
+    </h1>
+    <p>Enterprise AI Assistant on Your Wrist — Record, Understand, and Act with Microsoft 365 Copilot while data stays inside your tenant.</p>
+    <div class="hero-actions">
+      <button id="startDemoBtn" class="btn btn-primary">Start 60s Demo</button>
+      <button id="resetDemoBtn" class="btn btn-secondary">Reset</button>
+    </div>
+    <div class="mode-row">
+      <span class="mode-label">Mode:</span>
+      <button id="demoModeBtn" class="chip chip-active" type="button">Demo (No LLM)</button>
+      <button id="liveModeBtn" class="chip" type="button">Live AI (Copilot Service)</button>
+      <span id="modeHint" class="mode-hint">Safe for offline challenge demos.</span>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel watch-panel">
+      <h2>1) Smartwatch Experience</h2>
+      <div class="watch-hero-bg">
+        <div class="watch-frame">
+          <div class="watch-screen">
+            <div class="screen-top">
+              <span class="watch-dot" aria-hidden="true"></span>
+              <span id="clock">10:09</span>
+              <span class="watch-battery" aria-label="Battery 78%">
+                <span class="watch-battery-level" aria-hidden="true"></span>
+              </span>
+            </div>
+            <div class="watch-app-title">Wrist Copilot</div>
+            <div class="watch-scene watch-scene-intro active" id="watchSceneIntro" aria-hidden="true">
+              <div class="watch-copilot-icon">
+                <img src="assets/copilot-logo.png" alt="Copilot logo">
+              </div>
+            </div>
+            <div class="watch-scene watch-scene-sync" id="watchSceneSync" aria-hidden="true">
+              <div class="watch-sync-person">
+                <svg viewBox="0 0 72 72" role="img">
+                  <circle cx="36" cy="18" r="11"></circle>
+                  <path d="M16 58V46c0-8 9-14 20-14s20 6 20 14v12"></path>
+                </svg>
+              </div>
+              <div class="watch-sync-row">
+                <div class="watch-sync-logo watch-sync-ms">
+                  <img src="assets/copilot-logo.png" alt="Wrist Copilot">
+                </div>
+                <div class="watch-sync-arrows">
+                  <span></span><span></span><span></span>
+                </div>
+                <div class="watch-sync-logo watch-sync-fit">
+                  <svg viewBox="0 0 64 64" role="img">
+                    <path d="M32 58 7 33a15 15 0 1 1 21-21l4 4 4-4a15 15 0 1 1 21 21z" fill="#ffffff"></path>
+                    <path d="M32 58 7 33a15 15 0 0 1 0-21l25 25z" fill="#34a853"></path>
+                    <path d="M32 58 57 33a15 15 0 0 0 0-21L32 37z" fill="#4285f4"></path>
+                    <path d="m7 12 25 25-4 4L3 16a15 15 0 0 1 4-4z" fill="#fbbc05"></path>
+                    <path d="m57 12-25 25 4 4 25-25a15 15 0 0 0-4-4z" fill="#ea4335"></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="watch-scene watch-scene-governance" id="watchSceneGovernance" aria-hidden="true">
+              <div class="watch-governance-icon">
+                <img src="assets/governance-icon.png" alt="Governance Assistant icon">
+              </div>
+              <div class="watch-governance-bars">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+            <div class="watch-scene watch-scene-escalation" id="watchSceneEscalation" aria-hidden="true">
+              <div class="watch-escalation-icon" aria-hidden="true">
+                <img src="assets/incident-icon.png" alt="Escalation Assistant icon">
+              </div>
+              <div class="watch-escalation-pulses">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+            <div class="status-pill" id="watchStatus">Idle</div>
+            <p id="watchText">Tap "Start 60s Demo" to simulate a live meeting capture.</p>
+            <button id="watchPushToTalkBtn" class="watch-talk-btn" type="button">Hold to Talk</button>
+            <div class="wave watch-wave" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ul class="capability-list">
+        <li>Voice capture + command trigger</li>
+        <li>Real-time transcript snippets</li>
+        <li>Action item extraction for Teams/Planner</li>
+      </ul>
+      <div class="audio-controls">
+        <button id="enableMicBtn" class="btn btn-secondary" type="button">Allow Microphone</button>
+        <div class="mic-meter" aria-hidden="true">
+          <div id="micLevel" class="mic-level"></div>
+        </div>
+        <p id="micStatus" class="mic-status">Microphone not enabled yet.</p>
+      </div>
+    </section>
+
+    <section class="panel meeting-panel">
+      <h2>2) Companion Mobile/Gateway</h2>
+      <div class="meeting-controls">
+        <button id="simulateMeetingBtn" class="btn btn-primary" type="button">Simulate Person A/B Meeting</button>
+        <button id="startLiveConversationBtn" class="btn btn-primary" type="button">Start Live Conversation</button>
+        <button id="stopLiveConversationBtn" class="btn btn-secondary" type="button">Stop Live Conversation</button>
+        <button id="holdATalkBtn" class="btn btn-secondary" type="button">Hold Person A to Talk</button>
+        <button id="holdBTalkBtn" class="btn btn-secondary" type="button">Hold Person B to Talk</button>
+        <button id="analyzeNowBtn" class="btn btn-secondary" type="button">Analyze via API</button>
+        <button id="clearMeetingBtn" class="btn btn-secondary" type="button">Clear Transcript</button>
+      </div>
+      <div class="speaker-controls">
+        <span>Current Speaker:</span>
+        <button id="speakerABtn" class="chip chip-active" type="button">Person A</button>
+        <button id="speakerBBtn" class="chip" type="button">Person B</button>
+        <span id="liveConversationStatus" class="live-status">Live conversation is not active.</span>
+      </div>
+      <p class="meeting-note">Use Live AI mode + Analyze via API to demonstrate backend processing and tenant-safe architecture.</p>
+      <div class="timeline">
+        <div class="timeline-item">
+          <h3>Live Transcript</h3>
+          <div id="transcriptFeed" class="feed"></div>
+        </div>
+        <div class="timeline-item">
+          <h3>AI Summary</h3>
+          <div id="summaryFeed" class="feed"></div>
+        </div>
+        <div class="timeline-item">
+          <h3>Action Items</h3>
+          <div id="actionsFeed" class="feed"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel tenant-panel">
+      <h2>3) Governance Assistant</h2>
+      <div class="governance-controls">
+        <button id="runGovernanceBtn" class="btn btn-primary" type="button">Run Governance Check</button>
+        <button id="approveGovernanceBtn" class="btn btn-secondary" type="button">Approve & Create Task</button>
+      </div>
+      <p id="governanceStatus" class="governance-status">Ready: waiting to validate policy, sensitivity, and approvals.</p>
+      <div class="governance-grid">
+        <article>
+          <h3>Sensitivity Label</h3>
+          <p>Confidential · Tenant Only · Internal sharing enforced</p>
+        </article>
+        <article>
+          <h3>Policy Guardrail</h3>
+          <p>PII leakage scan, external domain block, and DLP checks required.</p>
+        </article>
+        <article>
+          <h3>Approval Workflow</h3>
+          <p>Manager + Security sign-off before Planner/Jira action is committed.</p>
+        </article>
+      </div>
+      <div class="security-box">
+        <h3>Audit Timeline</h3>
+        <div id="governanceFeed" class="feed"></div>
+      </div>
+    </section>
+
+    <section class="panel escalation-panel">
+      <h2>4) Escalation Assistant</h2>
+      <div class="escalation-controls">
+        <button id="triggerEscalationBtn" class="btn btn-primary" type="button">Trigger Sev-2 Escalation</button>
+        <button id="resolveEscalationBtn" class="btn btn-secondary" type="button">Mark Incident Resolved</button>
+      </div>
+      <p id="escalationStatus" class="escalation-status">Ready: monitoring incident signals and awaiting escalation trigger.</p>
+      <div class="escalation-grid">
+        <article>
+          <h3>Incident Routing</h3>
+          <p>Auto-route to on-call roster and service owner based on impacted workload.</p>
+        </article>
+        <article>
+          <h3>Teams War Room</h3>
+          <p>Create bridge channel, pin summary, assign commander, and track owners.</p>
+        </article>
+        <article>
+          <h3>SLA Clock</h3>
+          <p>Track acknowledgement and resolution timers with escalation reminders.</p>
+        </article>
+      </div>
+      <div class="security-box">
+        <h3>Escalation Timeline</h3>
+        <div id="escalationFeed" class="feed"></div>
+      </div>
+    </section>
+
+    <section class="panel health-panel">
+      <h2>5) Health Assistant (Wrist Copilot ↔ Google Fit)</h2>
+      <div class="health-sync-visual" id="healthSyncVisual" aria-live="polite">
+        <div class="sync-person" aria-hidden="true">
+          <svg viewBox="0 0 72 72" role="img">
+            <circle cx="36" cy="18" r="11"></circle>
+            <path d="M16 58V46c0-8 9-14 20-14s20 6 20 14v12"></path>
+          </svg>
+        </div>
+        <div class="sync-logos" aria-hidden="true">
+          <div class="sync-ms-logo">
+            <img src="assets/copilot-logo.png" alt="Wrist Copilot icon">
+          </div>
+          <div class="sync-arrows">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="sync-fit-logo">
+            <svg viewBox="0 0 64 64" role="img">
+              <path d="M32 58 7 33a15 15 0 1 1 21-21l4 4 4-4a15 15 0 1 1 21 21z" fill="#ffffff"></path>
+              <path d="M32 58 7 33a15 15 0 0 1 0-21l25 25z" fill="#34a853"></path>
+              <path d="M32 58 57 33a15 15 0 0 0 0-21L32 37z" fill="#4285f4"></path>
+              <path d="m7 12 25 25-4 4L3 16a15 15 0 0 1 4-4z" fill="#fbbc05"></path>
+              <path d="m57 12-25 25 4 4 25-25a15 15 0 0 0-4-4z" fill="#ea4335"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="health-controls">
+        <button id="connectFitBtn" class="btn btn-primary" type="button">Connect / Sync Google Fit</button>
+        <button id="refreshHealthBtn" class="btn btn-secondary" type="button">Refresh Health Summary</button>
+        <button id="playHealthVoiceBtn" class="btn btn-secondary" type="button">Play AI Voice Briefing</button>
+      </div>
+      <p id="healthStatus" class="health-status">Ready to sync fitness metrics for health summary.</p>
+      <div class="health-metrics">
+        <article>
+          <h3>Steps</h3>
+          <p id="healthSteps">--</p>
+        </article>
+        <article>
+          <h3>Heart Points</h3>
+          <p id="healthHeartPoints">--</p>
+        </article>
+        <article>
+          <h3>Calories</h3>
+          <p id="healthCalories">--</p>
+        </article>
+        <article>
+          <h3>Active Minutes</h3>
+          <p id="healthActiveMinutes">--</p>
+        </article>
+      </div>
+      <div class="health-summary">
+        <h3>Health Copilot Summary</h3>
+        <div id="healthSummaryFeed" class="feed"></div>
+      </div>
+    </section>
+
+    <section class="panel assistant-panel">
+      <h2>6) Copilot Assistant</h2>
+      <div class="assistant-head">
+        <div class="assistant-avatar" aria-hidden="true">
+          <svg viewBox="0 0 64 64">
+            <defs>
+              <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#2dd4ff"></stop>
+                <stop offset="50%" stop-color="#7b68ff"></stop>
+                <stop offset="100%" stop-color="#a855f7"></stop>
+              </linearGradient>
+            </defs>
+            <path d="M18 12h28a10 10 0 0 1 10 10v20a10 10 0 0 1-10 10H18A10 10 0 0 1 8 42V22a10 10 0 0 1 10-10zm0 8a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h10l7-9 7 9h4a2 2 0 0 0 2-2V22a2 2 0 0 0-2-2H18z" fill="url(#g2)"></path>
+          </svg>
+        </div>
+        <div>
+          <h3 id="assistantName">Wrist Copilot Assistant</h3>
+          <p id="assistantStatusText">Ready to support your meeting tasks and follow-ups.</p>
+        </div>
+      </div>
+      <div id="assistantFeed" class="assistant-feed"></div>
+      <div class="assistant-actions">
+        <button id="simulateAskBtn" class="btn btn-secondary" type="button">Ask Assistant</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Prototype theme: <span>Personal. Powerful. Private.</span></p>
+  </footer>
+
+  <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
+  <script src="app.js"></script>
+</body>
+</html>

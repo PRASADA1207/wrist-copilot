@@ -1,0 +1,9 @@
+{
+  "name": "wrist-copilot-prototype",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Wrist Copilot demo with dual-speaker simulation and secure backend API processing",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
